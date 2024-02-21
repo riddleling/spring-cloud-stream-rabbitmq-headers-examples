@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    function:
+      definition: onReceive
+    stream:
+      bindings:
+        onReceive-in-0:
+          destination: test-thing-topic
+          group: consumer1
+      rabbit:
+        bindings:
+          onReceive-in-0:
+            consumer:
+              exchangeType: headers
+              queueBindingArguments:
+                x-match: any
+                some-header: some-value
+                some-header3: some-value3
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
